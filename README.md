@@ -6,7 +6,7 @@ Run [Defined Networking's DNClient](https://www.defined.net/) (Managed Nebula) a
 
 1. In Home Assistant, go to **Settings → Add-ons → Add-on Store**
 2. Click the **⋮** menu (top right) → **Repositories**
-3. Add this repository URL: `https://github.com/johnmaguire/homeassistant-addon-dnclient`
+3. Add this repository URL: `https://forge.johnmaguire.me/jarvis/homeassistant-addon-dnclient`
 4. Find **DNClient** in the store and click **Install**
 
 ## Configuration

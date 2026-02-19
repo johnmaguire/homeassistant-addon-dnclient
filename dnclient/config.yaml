@@ -1,0 +1,17 @@
+name: DNClient
+version: "0.1.0"
+slug: dnclient
+description: "Run Defined Networking's DNClient (Managed Nebula) on Home Assistant OS"
+url: "https://github.com/johnmaguire/homeassistant-addon-dnclient"
+arch:
+  - amd64
+  - aarch64
+startup: system
+boot: auto
+host_network: true
+privileged:
+  - NET_ADMIN
+options:
+  enrollment_code: ""
+schema:
+  enrollment_code: "str?"

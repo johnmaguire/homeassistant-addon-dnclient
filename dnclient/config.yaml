@@ -2,7 +2,7 @@ name: DNClient
 version: "0.1.0"
 slug: dnclient
 description: "Run Defined Networking's DNClient (Managed Nebula) on Home Assistant OS"
-url: "https://forge.johnmaguire.me/jarvis/homeassistant-addon-dnclient"
+url: "https://github.com/johnmaguire/homeassistant-addon-dnclient"
 arch:
   - amd64
   - aarch64

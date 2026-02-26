@@ -1,5 +1,5 @@
 {
   "name": "Defined Networking Add-ons",
-  "url": "https://forge.johnmaguire.me/jarvis/homeassistant-addon-dnclient",
+  "url": "https://github.com/johnmaguire/homeassistant-addon-dnclient",
   "maintainer": "John Maguire"
 }

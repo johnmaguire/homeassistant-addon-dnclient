@@ -1,4 +1,4 @@
-ARG BUILD_FROM=definednet/dnclient:latest
+ARG BUILD_FROM
 
 # Extract binaries from official image (avoids inheriting its VOLUME declaration)
 FROM ${BUILD_FROM} AS source

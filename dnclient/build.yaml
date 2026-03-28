@@ -1,3 +1,3 @@
 build_from:
-  amd64: definednet/dnclient:latest
-  aarch64: definednet/dnclient:latest
+  amd64: definednet/dnclient:0.9.0
+  aarch64: definednet/dnclient:0.9.0

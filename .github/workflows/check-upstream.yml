@@ -1,0 +1,57 @@
+name: Check for upstream dnclient releases
+
+on:
+  schedule:
+    - cron: "0 8 * * *" # daily at 08:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  check-update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Get current pinned version
+        id: current
+        run: |
+          version=$(grep -oP '(?<=definednet/dnclient:)\S+' dnclient/build.yaml | head -1)
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Get latest stable upstream version
+        id: upstream
+        run: |
+          # Fetch tags from Docker Hub, filter to stable semver only (no pre-release suffixes)
+          latest=$(curl -s "https://hub.docker.com/v2/repositories/definednet/dnclient/tags/?page_size=100&ordering=last_updated" \
+            | jq -r '.results[].name' \
+            | grep -xE '[0-9]+\.[0-9]+\.[0-9]+' \
+            | sort -V \
+            | tail -1)
+          echo "version=$latest" >> "$GITHUB_OUTPUT"
+
+      - name: Update if newer version available
+        if: steps.upstream.outputs.version != steps.current.outputs.version && steps.upstream.outputs.version != ''
+        run: |
+          NEW="${{ steps.upstream.outputs.version }}"
+          OLD="${{ steps.current.outputs.version }}"
+
+          # Update build.yaml
+          sed -i "s|definednet/dnclient:${OLD}|definednet/dnclient:${NEW}|g" dnclient/build.yaml
+
+          # Update config.yaml version
+          sed -i "s|^version: \"${OLD}\"|version: \"${NEW}\"|" dnclient/config.yaml
+
+          # Update CHANGELOG.md
+          DATE=$(date +%Y-%m-%d)
+          sed -i "0,/^# Changelog/s|^# Changelog|# Changelog\n\n## ${NEW} (${DATE})\n\n- Update dnclient to ${NEW}|" dnclient/CHANGELOG.md
+
+      - name: Commit and push
+        if: steps.upstream.outputs.version != steps.current.outputs.version && steps.upstream.outputs.version != ''
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Update dnclient to ${{ steps.upstream.outputs.version }}"
+          git push

@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.9.4.1 (2026-06-02)
+
+- Fix enrollment hang on dnclient 0.9.x: pin `DNCLIENT_STATE_DIR=/etc/defined`
+  and `DNCLIENT_SOCKET_DIR=/var/run` in the Dockerfile. dnclient 0.9.x moved its
+  Linux defaults to `/var/lib/defined` and `/var/run/defined`, so the control
+  socket no longer appeared at `/var/run/dnclient.sock` and `run.sh` timed out
+  waiting for it.
+
 ## 0.9.4 (2026-05-29)
 
 - Update dnclient to 0.9.4

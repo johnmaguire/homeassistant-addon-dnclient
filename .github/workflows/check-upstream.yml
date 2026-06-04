@@ -40,8 +40,11 @@ jobs:
           # Update build.yaml
           sed -i "s|definednet/dnclient:${OLD}|definednet/dnclient:${NEW}|g" dnclient/build.yaml
 
-          # Update config.yaml version
-          sed -i "s|^version: \"${OLD}\"|version: \"${NEW}\"|" dnclient/config.yaml
+          # Update config.yaml version. Replace the whole line rather than
+          # matching OLD: the addon version can diverge from the dnclient image
+          # tag (e.g. an addon-only fix bumped to 0.9.4.1 while build.yaml stayed
+          # at 0.9.4), and a value-specific match would silently skip the bump.
+          sed -i "s|^version: .*|version: \"${NEW}\"|" dnclient/config.yaml
 
           # Update CHANGELOG.md
           DATE=$(date +%Y-%m-%d)

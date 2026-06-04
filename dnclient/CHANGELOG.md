@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.9.5 (2026-06-04)
+
+- Update dnclient to 0.9.5
+
 ## 0.9.4.1 (2026-06-02)
 
 - Fix enrollment hang on dnclient 0.9.x: pin `DNCLIENT_STATE_DIR=/etc/defined`

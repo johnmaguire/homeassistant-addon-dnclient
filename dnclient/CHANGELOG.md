@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.9.7 (2026-07-30)
+
+- Update dnclient to 0.9.7
+
 ## 0.9.5 (2026-06-04)
 
 - Update dnclient to 0.9.5
